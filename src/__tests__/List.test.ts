@@ -44,3 +44,13 @@ describe("multiple items", () => {
         expect(list.dequeue()).toBe(100);
     });
 });
+
+describe("getting a specific node", () => {
+    //TODO
+    throw new Error("Method not implemented.");
+});
+
+describe("getting all nodes", () => {
+    //TODO
+    throw new Error("Method not implemented.");
+});

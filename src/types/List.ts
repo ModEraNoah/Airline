@@ -45,4 +45,14 @@ export class List<T> {
         this.length--;
         return element;
     }
+
+    public getSpecificNode(index: number): T {
+        //TODO: searching for specific Node in List
+        throw new Error("Method not implemented.");
+    }
+
+    public getAllNodes(): T[] {
+        //TODO: returning all Nodes in list (i.e. their values)
+        throw new Error("Method not implemented.");
+    }
 }
