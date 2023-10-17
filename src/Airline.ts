@@ -37,7 +37,7 @@ export class Airline implements IAirline {
         start: Airport,
         destination: Airport,
         flightnumber: string,
-        travelheight: number,
+        travelheight?: number,
     ): Flight {
         const airplane = this.getFreeAirplane();
         const newFlight = new Flight(
@@ -50,6 +50,13 @@ export class Airline implements IAirline {
         this.currentFlights.enqueue(newFlight);
         return newFlight;
     }
+
+    startFlight() {
+        let latestFlight = this.currentFlights.dequeue();
+        if (!latestFlight) throw new Error("No flight in queue!");
+        latestFlight.doTask();
+    }
+
     getCurrentFlights(): Flight[] {
         throw new Error("Method not implemented.");
     }

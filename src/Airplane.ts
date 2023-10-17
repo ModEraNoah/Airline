@@ -20,10 +20,12 @@ export class Airplane {
     }
 
     public startEngine() {
+        console.log("airplane starts engine");
         //TODO
     }
 
     public stopEngine() {
+        console.log("airplane stops engine");
         //TODO
     }
 

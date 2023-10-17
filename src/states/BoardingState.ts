@@ -1,5 +1,6 @@
 import { Flight } from "../Flight";
 import { State } from "../types/State";
+import { TakeoffState } from "./TakeoffState";
 
 export class BoardingState implements State {
     flight: Flight;
@@ -9,9 +10,29 @@ export class BoardingState implements State {
     }
 
     announcement(): void {
-        throw new Error("Method not implemented.");
+        console.log(
+            "[",
+            this.flight.flightnumber,
+            "]",
+            "Now entering BoardingState",
+        );
     }
-    doTask(): void {
-        throw new Error("Method not implemented.");
+    async doTask(): Promise<void> {
+        this.startBoarding();
+        setTimeout(
+            () => {
+                this.endBoarding;
+                this.flight.changeState(new TakeoffState(this.flight));
+            },
+            Math.floor(Math.random() * 4000 + 1),
+        );
+    }
+
+    startBoarding() {
+        console.log("[", this.flight.flightnumber, "]", "Boarding has started");
+    }
+
+    endBoarding() {
+        console.log("[", this.flight.flightnumber, "]", "Boarding has ended");
     }
 }
