@@ -1,4 +1,4 @@
-export class Airplane {
+export abstract class Airplane {
     public name: string;
     public capacity: number;
     public velocity: number;
@@ -20,12 +20,10 @@ export class Airplane {
     }
 
     public startEngine() {
-        console.log("airplane starts engine");
         //TODO
     }
 
     public stopEngine() {
-        console.log("airplane stops engine");
         //TODO
     }
 

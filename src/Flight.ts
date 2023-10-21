@@ -1,8 +1,7 @@
 import { Airline } from "./Airline";
-import { Airplane } from "./Airplane";
 import { Airport } from "./Airport";
+import { Airplane } from "./airplanes/AirplaneFactory";
 import { BoardingState } from "./states/BoardingState";
-import { ParkedState } from "./states/ParkedState";
 import { State } from "./types/State";
 
 export class Flight {
@@ -30,7 +29,6 @@ export class Flight {
 
     public changeState(state: State) {
         this.state = state;
-        // console.log("state after change:", this.state);
         this.doTask();
     }
 

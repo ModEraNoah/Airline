@@ -1,13 +1,16 @@
-import { Airplane } from "./Airplane";
 import { Airport } from "./Airport";
 import { Flight } from "./Flight";
+import { A380 } from "./airplanes/A380";
+import { Airplane } from "./airplanes/AirplaneFactory";
 import { List } from "./types/List";
 
 interface IAirline {
     name: string;
     abbreviation: string;
     rating: number;
-    currentFlights: List<Flight>;
+    readyFlightsQueue: List<Flight>;
+    // TODO: implement ongoing queue
+    ongoingFlightsQueue: List<Flight>
     airplanePool: List<Airplane>;
 
     addFlight(
@@ -23,17 +26,19 @@ export class Airline implements IAirline {
     name: string;
     abbreviation: string;
     rating: number;
-    currentFlights: List<Flight>;
+    readyFlightsQueue: List<Flight>;
+    ongoingFlightsQueue: List<Flight>;
     airplanePool: List<Airplane>;
 
     constructor(name: string, abbreviation: string, rating: number) {
         (this.name = name), (this.abbreviation = abbreviation);
         this.rating = rating;
-        this.currentFlights = new List<Flight>();
+        this.readyFlightsQueue = new List<Flight>();
+        this.ongoingFlightsQueue = new List<Flight>()
         this.airplanePool = new List<Airplane>();
     }
 
-    addFlight(
+    public addFlight(
         start: Airport,
         destination: Airport,
         flightnumber: string,
@@ -47,34 +52,40 @@ export class Airline implements IAirline {
             start,
             destination,
         );
-        this.currentFlights.enqueue(newFlight);
+        this.readyFlightsQueue.enqueue(newFlight);
         return newFlight;
     }
 
-    startFlight() {
-        let latestFlight = this.currentFlights.dequeue();
-        if (!latestFlight) throw new Error("No flight in queue!");
-        latestFlight.doTask();
-    }
-
-    getCurrentFlights(): Flight[] {
-        throw new Error("Method not implemented.");
-    }
-    getSpecificFlight(flightnumber: number): Flight {
-        throw new Error("Method not implemented.");
-    }
-
-    getFreeAirplane(): Airplane {
+    private getFreeAirplane(): Airplane {
         let airplane: Airplane | null;
         airplane = this.airplanePool.dequeue();
         if (!airplane) {
-            airplane = new Airplane("A380", 250, 500, 32000, 5000);
+            airplane = new A380()
         }
 
         return airplane;
     }
 
-    addPlaneToPool(plane: Airplane): void {
+    public startFlight() {
+        const latestFlight = this.getLatestFlight()
+        latestFlight.doTask();
+    }
+
+    private getLatestFlight() {
+        const latestFlight = this.readyFlightsQueue.dequeue();
+        if (!latestFlight) throw new Error("No flight in queue!");
+        return latestFlight
+    }
+
+    public getCurrentFlights(): Flight[] {
+        throw new Error("Method not implemented.");
+    }
+
+    public getSpecificFlight(flightnumber: number): Flight {
+        throw new Error("Method not implemented.");
+    }
+
+    public addPlaneToPool(plane: Airplane): void {
         this.airplanePool.enqueue(plane);
     }
 }
