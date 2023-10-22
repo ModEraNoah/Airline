@@ -7,7 +7,7 @@ export class Node<T> {
         this.value = value;
     }
 }
-export class List<T> {
+export class Queue<T> {
     private head: Node<T> | null;
     private tail: Node<T> | null;
     public length: number;
@@ -46,8 +46,22 @@ export class List<T> {
         return element;
     }
 
-    public getSpecificNode(index: number): T {
-        //TODO: searching for specific Node in List
+    public getNodeValueByIndex(index: number): T {
+        if (!this.head) throw new Error("No Nodes in queueu");
+        if (index < 0) throw new Error("Negativ Index provided");
+        if (index > this.length - 1) throw new Error("Index exceeds List");
+
+        if (index === 0) return this.head.value;
+
+        let pointer: Node<T> = this.head!;
+        for (let i = 0; i < index; i++) {
+            pointer = pointer.next!;
+        }
+
+        return pointer.value;
+    }
+
+    public getNodeByValue(value: T): Node<T> {
         throw new Error("Method not implemented.");
     }
 
