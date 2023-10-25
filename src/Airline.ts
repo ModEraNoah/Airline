@@ -2,16 +2,16 @@ import { Airport } from "./Airport";
 import { Flight } from "./Flight";
 import { A380 } from "./airplanes/A380";
 import { Airplane } from "./airplanes/AirplaneFactory";
-import { List } from "./types/List";
+import { Queue } from "./types/Queue";
 
 interface IAirline {
     name: string;
     abbreviation: string;
     rating: number;
-    readyFlightsQueue: List<Flight>;
+    readyFlightsQueue: Queue<Flight>;
     // TODO: implement ongoing queue
-    ongoingFlightsQueue: List<Flight>
-    airplanePool: List<Airplane>;
+    ongoingFlightsQueue: Queue<Flight>;
+    airplanePool: Queue<Airplane>;
 
     addFlight(
         start: Airport,
@@ -26,16 +26,16 @@ export class Airline implements IAirline {
     name: string;
     abbreviation: string;
     rating: number;
-    readyFlightsQueue: List<Flight>;
-    ongoingFlightsQueue: List<Flight>;
-    airplanePool: List<Airplane>;
+    readyFlightsQueue: Queue<Flight>;
+    ongoingFlightsQueue: Queue<Flight>;
+    airplanePool: Queue<Airplane>;
 
     constructor(name: string, abbreviation: string, rating: number) {
         (this.name = name), (this.abbreviation = abbreviation);
         this.rating = rating;
-        this.readyFlightsQueue = new List<Flight>();
-        this.ongoingFlightsQueue = new List<Flight>()
-        this.airplanePool = new List<Airplane>();
+        this.readyFlightsQueue = new Queue<Flight>();
+        this.ongoingFlightsQueue = new Queue<Flight>();
+        this.airplanePool = new Queue<Airplane>();
     }
 
     public addFlight(
@@ -60,21 +60,21 @@ export class Airline implements IAirline {
         let airplane: Airplane | null;
         airplane = this.airplanePool.dequeue();
         if (!airplane) {
-            airplane = new A380()
+            airplane = new A380();
         }
 
         return airplane;
     }
 
     public startFlight() {
-        const latestFlight = this.getLatestFlight()
+        const latestFlight = this.getLatestFlight();
         latestFlight.doTask();
     }
 
     private getLatestFlight() {
         const latestFlight = this.readyFlightsQueue.dequeue();
         if (!latestFlight) throw new Error("No flight in queue!");
-        return latestFlight
+        return latestFlight;
     }
 
     public getCurrentFlights(): Flight[] {
