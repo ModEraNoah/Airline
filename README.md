@@ -7,4 +7,6 @@ The first draft of a class diagramm is included (see below)
 
 # Future
 
-Maybe a database gets integrated. If this is the case, an API will be implemented as well
+## TODO
+
+A database will be introduced in order to save airlines and their flights
