@@ -5,38 +5,38 @@ import { BoardingState } from "./states/BoardingState";
 import { State } from "./types/State";
 
 export class Flight {
-    private state: State;
-    public flightnumber: string;
-    public airplane: Airplane;
-    public airline: Airline;
-    public start: Airport;
-    public destination: Airport;
+  private state: State;
+  public flightnumber: string;
+  public airplane: Airplane;
+  public airline: Airline;
+  public start: Airport;
+  public destination: Airport;
 
-    constructor(
-        airplane: Airplane,
-        airline: Airline,
-        flightnumber: string,
-        start: Airport,
-        destination: Airport,
-    ) {
-        this.airplane = airplane;
-        this.airline = airline;
-        this.flightnumber = flightnumber;
-        this.start = start;
-        this.destination = destination;
-        this.state = new BoardingState(this);
-    }
+  constructor(
+    airplane: Airplane,
+    airlineAbbreviation: Airline,
+    flightnumber: string,
+    start: Airport,
+    destination: Airport,
+  ) {
+    this.airplane = airplane;
+    this.airline = airlineAbbreviation;
+    this.flightnumber = flightnumber;
+    this.start = start;
+    this.destination = destination;
+    this.state = new BoardingState(this);
+  }
 
-    public changeState(state: State) {
-        this.state = state;
-        this.doTask();
-    }
+  public changeState(state: State) {
+    this.state = state;
+    this.doTask();
+  }
 
-    public announcement() {
-        this.state.announcement();
-    }
+  public announcement() {
+    this.state.announcement();
+  }
 
-    public doTask() {
-        this.state.doTask();
-    }
+  public doTask() {
+    this.state.doTask();
+  }
 }

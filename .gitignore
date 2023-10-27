@@ -9,3 +9,6 @@
 
 # jest coverage report
 /coverage/
+
+# environmental file
+*.env
