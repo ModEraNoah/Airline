@@ -34,3 +34,10 @@ CONSTRAINT airline_id_fk FOREIGN KEY(airline_id) REFERENCES airlines(id),
 CONSTRAINT start_ap_id_fk FOREIGN KEY(start_airport_id) REFERENCES airports(id),
 CONSTRAINT dest_ap_id_fk FOREIGN KEY(dest_airport_id) REFERENCES airports(id)
 )
+
+
+CREATE SEQUENCE airlines_sequence start 1 increment 1 OWNED BY airlines.id;
+
+CREATE SEQUENCE countries_sequence start 1 increment 1 OWNED BY countries.id;
+
+CREATE SEQUENCE airports_sequence start 1 increment 1 OWNED BY airports.id;

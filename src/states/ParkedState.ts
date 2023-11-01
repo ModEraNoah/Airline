@@ -2,6 +2,7 @@ import { Flight } from "../Flight";
 import { State } from "../types/State";
 
 export class ParkedState implements State {
+    name = "ParkedState";
     flight: Flight;
 
     constructor(flight: Flight) {

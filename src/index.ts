@@ -17,9 +17,8 @@ try {
     console.log("tried to started more flights than there are");
 }
 
-
-const multiair = new Airline("Multiair", `MU5432`, 4.3)
+const multiair = new Airline("Multiair", `MU5432`, 4.3);
 for (let i = 0; i < 10; i++) {
-    multiair.addFlight(LAX, FRA, `${i}${i}${i}${i}`, 3200)
-    multiair.startFlight()
+    multiair.addFlight(LAX, FRA, `${i}${i}${i}${i}`, 3200);
+    multiair.startFlight();
 }

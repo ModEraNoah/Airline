@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
-dotenv.config({ path: "../database.env" });
+import path from "path";
+dotenv.config({ path: "./database.env" });
 
 let config = {
     host: process.env.PGHOST,
@@ -38,22 +39,26 @@ export class DatabaseConnector {
     }
 
     public async queryInDatabase(query: string, values?: string[]) {
+        let res;
         try {
-            //@ts-ignore
-            return await this.client.query(query, values);
+            res = await this.client.query(query, values).then((res) => res.rows);
         } catch (error) {
             console.error("Error while querying in database:", error);
+        }
+        if (!res) console.error("query result undefined....");
+        else {
+            console.log(">>>>>>> DB Res for query '", query, "':", res![0]);
+            return res;
         }
     }
 }
 
-const query = "SELECT * FROM public.airlines;";
+const query = "SELECT * FROM airlines;";
 const values = [""];
 
 let c = new DatabaseConnector();
+console.log("querying for airlines");
 
 c.openConnection();
-c.queryInDatabase(query)
-    .then((res) => console.log(res?.rows))
-    .then(() => c.closeConnection());
-//TODO
+console.log("connection opened");
+c.queryInDatabase(query).then(() => c.closeConnection());

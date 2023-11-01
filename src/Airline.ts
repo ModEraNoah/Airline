@@ -2,6 +2,7 @@ import { Airport } from "./Airport";
 import { Flight } from "./Flight";
 import { A380 } from "./airplanes/A380";
 import { Airplane } from "./airplanes/AirplaneFactory";
+import { AirlineDAO } from "./database/AirlineDAO";
 import { Queue } from "./types/Queue";
 
 interface IAirline {
@@ -22,6 +23,7 @@ interface IAirline {
     getCurrentFlights(): Flight[];
     getSpecificFlight(flightnumber: number): Flight;
 }
+
 export class Airline implements IAirline {
     name: string;
     abbreviation: string;
@@ -29,6 +31,7 @@ export class Airline implements IAirline {
     readyFlightsQueue: Queue<Flight>;
     ongoingFlightsQueue: Queue<Flight>;
     airplanePool: Queue<Airplane>;
+    private dataAccessObject: AirlineDAO;
 
     constructor(name: string, abbreviation: string, rating: number) {
         (this.name = name), (this.abbreviation = abbreviation);
@@ -36,6 +39,8 @@ export class Airline implements IAirline {
         this.readyFlightsQueue = new Queue<Flight>();
         this.ongoingFlightsQueue = new Queue<Flight>();
         this.airplanePool = new Queue<Airplane>();
+        this.dataAccessObject = new AirlineDAO(this);
+        this.dataAccessObject.createAirline();
     }
 
     public addFlight(

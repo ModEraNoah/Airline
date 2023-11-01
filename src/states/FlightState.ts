@@ -3,6 +3,7 @@ import { State } from "../types/State";
 import { ApproachState } from "./ApproachState";
 
 export class FlightState implements State {
+    name = "FlightState";
     flight: Flight;
 
     constructor(flight: Flight) {
