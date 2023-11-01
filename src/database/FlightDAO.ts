@@ -9,7 +9,6 @@ export class FlightDAO {
     constructor(flight: Flight) {
         this.flight = flight;
         this.dbConnection = new DatabaseConnector();
-        this.dbConnection.openConnection();
     }
 
     public async createFlight() {

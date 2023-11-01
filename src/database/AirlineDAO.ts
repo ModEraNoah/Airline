@@ -8,7 +8,6 @@ export class AirlineDAO {
     constructor(airline: Airline) {
         this.airline = airline;
         this.dbConnection = new DatabaseConnector();
-        this.dbConnection.openConnection();
     }
 
     public createAirline() {
@@ -40,6 +39,6 @@ export class AirlineDAO {
             throw Error("airline undefined");
         }
 
-        return res[0].id as string;
+        return res[0]?.id as string;
     }
 }
