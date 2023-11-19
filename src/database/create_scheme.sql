@@ -30,6 +30,7 @@ flightnumber VARCHAR(6) CONSTRAINT flights_flnum_pk PRIMARY KEY,
 airline_id INT,
 start_airport_id int,
 dest_airport_id int,
+state VARCHAR,
 CONSTRAINT airline_id_fk FOREIGN KEY(airline_id) REFERENCES airlines(id),
 CONSTRAINT start_ap_id_fk FOREIGN KEY(start_airport_id) REFERENCES airports(id),
 CONSTRAINT dest_ap_id_fk FOREIGN KEY(dest_airport_id) REFERENCES airports(id)
