@@ -144,9 +144,9 @@ class Queue<T>{
 + getAllNodes(): T[]
 }
 
-Airline --> Queue<Flight>
-Airline --> Queue<Flight>
-Airline --> Queue<Airplane>
+Airline --> Flight
+Airline --> Flight
+Airline --> Airplane
 Airline --> AirlineDAO
 Airline --> Flight
 Airline --> Airplane
@@ -163,7 +163,7 @@ A380 --|> Airplane
 ApproachState --> Flight
 ApproachState --|> State
 BoardingState --> Flight
-BoardingState --> Promise<void> {
+BoardingState --> void
 BoardingState --|> State
 FlightState --> Flight
 FlightState --|> State
@@ -173,12 +173,4 @@ ParkedState --> Flight
 ParkedState --|> State
 TakeoffState --> Flight
 TakeoffState --|> State
-Node<T> --> Node<T> | null
-Node<T> --> T
-Queue<T> --> Node<T> | null
-Queue<T> --> Node<T> | null
-Queue<T> --> T|null
-Queue<T> --> T
-Queue<T> --> Node<T>
-Queue<T> --> T
 @enduml

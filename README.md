@@ -3,7 +3,7 @@
 A simple typescript application to play around with different states of planes, airlines, ...
 
 The first draft of a class diagramm is included (see below)
-![Class Diagram](./Airline_Class_Diagram.svg)
+![Class Diagram](./Airline_Class_Diagram.png)
 
 # Future
 
