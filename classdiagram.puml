@@ -1,0 +1,184 @@
+@startuml
+class Airline{
+
++ name: string
++ abbreviation: string
++ rating: number
++ readyFlightsQueue: Queue<Flight>
++ ongoingFlightsQueue: Queue<Flight>
++ airplanePool: Queue<Airplane>
+- dataAccessObject: AirlineDAO
+ constructor(name:string,abbreviation:string,rating:number): 
++ addFlight(start:Airport,destination:Airport,flightnumber:string,travelheight?:number,): Flight
+- getFreeAirplane(): Airplane
++ startFlight(): 
+- getLatestFlight(): 
++ getCurrentFlights(): Flight[]
++ getSpecificFlight(flightnumber:number): Flight
++ addPlaneToPool(plane:Airplane): void
+}
+
+class Airport{
+
++ name: string
++ abbreviation: string
++ continent: string
++ country: string
+ constructor(name:string,abbreviation:string,continent:string,country:string,): 
+}
+
+class Flight{
+
+- state: State
++ flightnumber: string
++ airplane: Airplane
++ airline: Airline
++ start: Airport
++ destination: Airport
+- dataAccessObject: FlightDAO
+ constructor(airplane:Airplane,airline:Airline,flightnumber:string,start:Airport,destination:Airport,): 
++ changeState(state:State): 
++ announcement(): 
++ doTask(): 
+}
+
+class A380{
+
+- id: string
+ constructor(): 
+}
+
+class Airplane{
+
++ name: string
++ capacity: number
++ velocity: number
++ travelHeigth: number
++ maxDistance: number
+ constructor(name:string,capacity:number,velocity:number,travelHeigth:number,maxDistance:number,): 
++ startEngine(): 
++ stopEngine(): 
++ increaseVelocity(change:number): number
++ decreaseVelocity(change:number): number
++ increaseHeight(change:number): number
++ decreaseHeight(change:number): number
+}
+
+class ApproachState{
+
++ name: 
++ flight: Flight
+ constructor(flight:Flight): 
+ announcement(): void
+ doTask(): void
+}
+
+class BoardingState{
+
++ name: 
++ flight: Flight
++ async: Promise<void> {
+ constructor(flight:Flight): 
+ announcement(): void
+ this.startBoarding();: 
+ setTimeout(()=>: 
+ Math.floor(Math.random()*4000+1),): 
+}
+
+class FlightState{
+
++ name: 
++ flight: Flight
+ constructor(flight:Flight): 
+ announcement(): void
+ doTask(): void
+ readyForApproach(): 
+}
+
+class LandedState{
+
++ name: 
++ flight: Flight
+ constructor(flight:Flight): 
+ announcement(): void
+ doTask(): void
+}
+
+class ParkedState{
+
++ name: 
++ flight: Flight
+ constructor(flight:Flight): 
+ announcement(): void
+ doTask(): void
+}
+
+class TakeoffState{
+
++ name: 
++ flight: Flight
+ constructor(flight:Flight): 
+ announcement(): void
+ doTask(): void
+ startEngine(): 
+ takeOff(): 
+}
+
+class Node<T>{
+
++ next: Node<T> | null
++ value: T
+ constructor(value:T,next:Node<T>|null=null): 
+}
+
+class Queue<T>{
+
+- head: Node<T> | null
+- tail: Node<T> | null
++ length: number
+ constructor(): 
++ enqueue(element:T): 
++ dequeue(): T|null
++ getNodeValueByIndex(index:number): T
++ getNodeByValue(value:T): Node<T>
++ getAllNodes(): T[]
+}
+
+Airline --> Queue<Flight>
+Airline --> Queue<Flight>
+Airline --> Queue<Airplane>
+Airline --> AirlineDAO
+Airline --> Flight
+Airline --> Airplane
+Airline --> Flight
+Airline --> Flight
+Airline --|> IAirline
+Flight --> State
+Flight --> Airplane
+Flight --> Airline
+Flight --> Airport
+Flight --> Airport
+Flight --> FlightDAO
+A380 --|> Airplane
+ApproachState --> Flight
+ApproachState --|> State
+BoardingState --> Flight
+BoardingState --> Promise<void> {
+BoardingState --|> State
+FlightState --> Flight
+FlightState --|> State
+LandedState --> Flight
+LandedState --|> State
+ParkedState --> Flight
+ParkedState --|> State
+TakeoffState --> Flight
+TakeoffState --|> State
+Node<T> --> Node<T> | null
+Node<T> --> T
+Queue<T> --> Node<T> | null
+Queue<T> --> Node<T> | null
+Queue<T> --> T|null
+Queue<T> --> T
+Queue<T> --> Node<T>
+Queue<T> --> T
+@enduml
